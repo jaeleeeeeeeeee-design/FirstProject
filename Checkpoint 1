@@ -1,0 +1,4 @@
+//Checkpoint 1
+let tempCel = 19.5
+var tempFah = tempCel * 9 / 5 + 32
+print("\(tempCel)°C = \(tempFah)°F")
