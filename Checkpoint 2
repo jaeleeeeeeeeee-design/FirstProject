@@ -1,0 +1,5 @@
+//checkpoint 2 : Count items and unique items
+let Array: [String] = ["JY", "SH", "Lego", "Lego", "JY", "Haru"]
+print("The number of items: ", Array.count)
+let Set1 = Set(Array)
+print("The number of unique items: ", Set1.count)
