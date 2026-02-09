@@ -1,0 +1,24 @@
+// Checkpoint 5
+
+// your input is this: let luckyNumbers = [7, 4, 38, 21, 16, 15, 12, 33, 31, 49]
+// your job is to: 1. filter out any numbers that are even 2. sort the array in ascending order, 3. map them to strings in the format "7 is a lucky number" 4. print the resulting array, one item per line.
+
+let luckyNumbers = [7, 4, 38, 21, 16, 15, 12, 33, 31, 49]
+
+let oddNumbersList = luckyNumbers.filter { oddNumber in
+    oddNumber % 2 != 0
+}
+
+let ascendingNumbersList = oddNumbersList.sorted(by: {
+    return $0 < $1
+})
+
+func mapping(from array: [Int]) {
+    for num in array {
+        print("\(num) is a lucky number")
+    }
+}
+
+print(oddNumbersList)
+print(ascendingNumbersList)
+print(mapping(from: oddNumbersList))
