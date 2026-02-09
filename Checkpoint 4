@@ -24,3 +24,31 @@ do {
 } catch sqrtError.noRoot {
     print("no root")
 }
+
+
+// Updated
+
+var sqrtNumber = [Int : Int]()
+for i in 1...100 {
+    sqrtNumber[i * i] = i
+}
+
+func NumberCheck(num: Int) throws -> String {
+    if let answer = sqrtNumber[num] {
+        if num < 1 || num > 10000 {
+            throw sqrtError.outOfBounds
+        } else {
+            return "The squre root of \(num) is \(answer)"
+        }
+    }
+    throw sqrtError.noRoot
+}
+
+do {
+    let result = try NumberCheck(num: 25)
+    print("\(result)")
+} catch sqrtError.outOfBounds {
+    print("out of bounds")
+} catch sqrtError.noRoot {
+    print("no root")
+}
