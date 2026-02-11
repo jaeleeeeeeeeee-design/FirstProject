@@ -1,0 +1,37 @@
+// Checkpoint 6
+
+struct CarInformation {
+    var model: String
+    private(set) var owner: String
+    var seatsNumber: Int
+    
+    static var currentGear: Int = 0 {
+        didSet {
+            if currentGear < 1 {
+                currentGear = 1
+                print("Minimum gear")
+            } else if currentGear > 10 {
+                currentGear = 10
+                print("Maximum gear")
+            }
+            print("The gear changed from \(oldValue) to \(currentGear)")
+        }
+    }
+    static func gearUp() {
+        currentGear += 1
+    }
+    static func gearDown() {
+        currentGear -= 1
+    }
+    
+    init(model: String, owner: String, seatsNumber: Int) {
+        self.model = model
+        self.owner = owner
+        self.seatsNumber = seatsNumber
+    }
+}
+
+let jeep = CarInformation(model: "Wrangler", owner: "JY", seatsNumber: 4)
+print(jeep.owner)
+CarInformation.gearUp()
+print("The current gear is \(CarInformation.currentGear)")
