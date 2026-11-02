@@ -1,0 +1,98 @@
+import SwiftUI
+
+struct ContentView: View {
+    @State private var inputValue: Double = 0.0
+    @State private var inputUnit = "second"
+    @State private var outputUnit = "minutes"
+    @FocusState private var amountIsFocused: Bool
+    
+    let units = ["second", "minutes", "hours", "days"]
+    
+    var convertedValue: Double {
+        let input = Double(inputValue)
+        let inputUnit = self.inputUnit
+        let outputUnit = self.outputUnit
+        
+        let secToMin: Double = 60
+        let secToHr: Double = 3600
+        let secToD: Double = 86400
+        let minToSec: Double = 1 / 60
+        let minToHr: Double = 1 / 60
+        let minToD: Double = 60 / 86400
+        let hrToSec: Double = 1 / 3600
+        let hrToMin: Double = 60
+        let dToSec: Double = 1 / 86400
+        let hrToD: Double = 1 / 24
+        let dToMin: Double = 1 / 1440
+        let dToHr: Double = 24
+        
+        switch (inputUnit, outputUnit) {
+        case let (a, b) where a == b:
+            return input / 1.0
+        case ("second", "minutes"):
+            return input / secToMin
+        case ("second", "hours"):
+            return input / secToHr
+        case ("second", "days"):
+            return input / secToD
+        case ("minutes", "second"):
+            return input * minToSec
+        case ("minutes", "hours"):
+            return input * minToHr
+        case ("minutes", "days"):
+            return input * minToD
+        case ("hours", "second"):
+            return input * hrToSec
+        case ("hours", "minutes"):
+            return input * hrToMin
+        case ("hours", "days"):
+            return input * hrToD
+        case ("days", "second"):
+            return input * dToSec
+        case ("days", "minutes"):
+            return input * dToMin
+        case ("days", "hours"):
+            return input * dToHr
+        default:
+            return 0.0
+        }
+    }
+    
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section("What do you want to convert?") {
+                    TextField("Input", value: $inputValue, format: .number)
+                        .keyboardType(.numberPad)
+                        .focused($amountIsFocused)
+                    Picker("Unit", selection: $inputUnit) {
+                        ForEach(units, id: \.self) {
+                            Text($0)
+                        }
+                    }
+                }
+                
+                Section("What do you want to convert to?") {
+                    Picker("Unit", selection: $outputUnit) {
+                        ForEach(units, id: \.self) {
+                            Text($0)
+                        }
+                    }
+                }
+                
+                Section("Result") {
+                    Text("\(convertedValue, specifier: "%.1f") \(outputUnit)")
+                }
+            }
+            .navigationTitle("Time Converter")
+            .toolbar {
+                if amountIsFocused {
+                    Button("Done") {
+                        amountIsFocused = false
+                    }
+                }
+            }
+        }
+    }
+}
+}
